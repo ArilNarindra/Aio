@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUNA Multi-Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#050B14',
+                        carddark: '#0B1623',
+                        inputdark: '#121E2E',
+                        primary: '#4F46E5',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .watermark { position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: rgba(100, 116, 139, 0.2); pointer-events: none; z-index: 30; text-align: center; width: 100%; }
+        .ai-response { white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-darkbg text-gray-800 dark:text-gray-200 min-h-screen font-sans transition-colors duration-300 pb-20 relative">
+
+    <div class="fixed top-0 left-0 w-full bg-white/80 dark:bg-darkbg/80 backdrop-blur-sm shadow-sm z-40">
+        <div class="max-w-md mx-auto p-4 flex justify-between items-center h-20">
+            <button onclick="toggleMenu()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition" aria-label="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+            </button>
+            <h1 id="viewTitle" class="text-xl font-bold text-primary">KUNA AIO Downloader</h1>
+            <div class="flex gap-2">
+                <a href="https://chat.whatsapp.com/KhiwcmX9wy4IMnmyGnCONA?mode=hqrt2" target="_blank" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition" aria-label="Gabung Komunitas">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A9.065 9.065 0 0 1 12 15v-1.13c0-1.11.9-2.015 2.015-2.015H15.64c.248 0 .48.05.698.145m.002.029.014.004c.042.012.083.024.125.036.041.012.082.025.123.038.043.013.086.026.13.04.03.01.059.019.089.028a.755.755 0 0 1 .283.14c.09.06.175.124.254.193.083.073.16.15.23.232.074.085.142.174.202.268.062.096.116.198.16.303.046.107.083.218.11.332.028.117.046.236.054.358.01.125.014.251.014.378v2.339m-3.741-6.571a3 3 0 0 0-4.682-2.72m4.682 2.72.94 3.198m0 0a3 3 0 0 1-4.682-2.72m0 0a3 3 0 0 1 4.682 2.72M12 15v-1.13c0-1.11.9-2.015 2.015-2.015H15.64c.248 0 .48.05.698.145m-3.64.354a3 3 0 0 1-4.682-2.72m4.682 2.72.94 3.198m0 0a3 3 0 0 0 4.682-2.72M12 15v-1.13c0-1.11.9-2.015 2.015-2.015H15.64c.248 0 .48.05.698.145m-3.64.354.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A9.065 9.065 0 0 1 12 15v-1.13c0-1.11.9-2.015 2.015-2.015H15.64c.248 0 .48.05.698.145m0 0.002.014.004c.042.012.083.024.125.036.041.012.082.025.123.038.043.013.086.026.13.04.03.01.059.019.089.028a.755.755 0 0 1 .283.14c.09.06.175.124.254.193.083.073.16.15.23.232.074.085.142.174.202.268.062.096.116.198.16.303.046.107.083.218.11.332.028.117.046.236.054.358.01.125.014.251.014.378v2.339M3.75 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm0 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm0 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" /></svg>
+                </a>
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition" aria-label="Ganti Tema">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 block dark:hidden"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-6.364-.386 1.591-1.591M3 12H.75m.386-6.364 1.591 1.591" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden dark:block"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="dropdown-menu" class="hidden fixed top-20 left-0 right-0 z-30 max-w-md mx-auto px-4 fade-in">
+             <div class="bg-white dark:bg-carddark rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 p-2">
+                 <a onclick="switchView('downloader')" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                     <span class="font-medium">AIO Downloader</span>
+                 </a>
+                 <a onclick="switchView('flux')" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" /></svg>
+                     <span class="font-medium">Flux AI Generator</span>
+                 </a>
+                 <a onclick="switchView('nano')" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-primary"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-3.694 8.25-8.25 8.25S4.5 16.556 4.5 12 8.194 3.75 12.75 3.75 21 7.444 21 12Z" /></svg>
+                     <span class="font-medium">Nano Banana AI</span>
+                 </a>
+             </div>
+        </div>
+    </div>
+    
+    <main class="pt-20"> 
+
+        <div id="view-downloader" class="p-4 flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
+            <div class="bg-white dark:bg-carddark w-full max-w-md rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-800">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs text-gray-500 ml-1 mb-1 block">Masukkan Link (YT, IG, FB, dll)</label>
+                        <input type="text" id="urlInput" placeholder="https://www.youtube.com/watch?v=..." required class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-inputdark focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                    </div>
+                    <button type="button" onclick="startAioDownload()" class="w-full py-3 rounded-lg font-semibold bg-primary text-white hover:bg-indigo-600 transition shadow-lg shadow-indigo-500/30">
+                        Download
+                    </button>
+                </div>
+            </div>
+            <div id="aioResultsContainer" class="w-full max-w-md mt-6"></div>
+        </div>
+
+        <div id="view-flux" class="hidden p-4 flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
+            <div class="bg-white dark:bg-carddark w-full max-w-md rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-800">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs text-gray-500 ml-1 mb-1 block">Masukkan Prompt Teks</label>
+                        <div class="relative w-full">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" /></svg>
+                            </span>
+                            <input type="text" id="fluxInput" placeholder="Contoh: Kucing astronot di bulan..." class="w-full p-3 pl-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-inputdark focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                        </div>
+                    </div>
+                    <button type="button" onclick="startFluxGeneration()" class="w-full py-3 rounded-lg font-semibold bg-primary text-white hover:bg-indigo-600 transition shadow-lg shadow-indigo-500/30">
+                        Generate Image
+                    </button>
+                </div>
+            </div>
+            <div id="fluxResultsContainer" class="w-full max-w-md mt-6"></div>
+        </div>
+
+        <div id="view-nano" class="hidden p-4 flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
+            <div class="bg-white dark:bg-carddark w-full max-w-md rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-800">
+                <div class="space-y-4">
+                    
+                    <div>
+                        <label class="text-xs text-gray-500 ml-1 mb-1 block">Prompt Teks</label>
+                        <textarea id="nanoInput" placeholder="Contoh: Ubah warna bajunya jadi hitam" rows="2" class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-inputdark focus:outline-none focus:ring-2 focus:ring-primary text-sm"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-gray-500 ml-1 mb-1 block">URL Gambar</label>
+                        <input type="text" id="nanoImageUrlInput" placeholder="https://tmpfiles.org/..." class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-inputdark focus:outline-none focus:ring-2 focus:ring-primary text-sm">
+                        
+                        <a href="https://tmpfiles.org/" target="_blank"
+                           class="flex items-center justify-center gap-2 mt-2 px-3 py-2 text-sm bg-gray-100 dark:bg-inputdark rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                            </svg>
+                            Belum punya link? Upload file di tmpfiles.org
+                        </a>
+                    </div>
+
+                    <button type="button" onclick="startNanoBanana()" class="w-full py-3 rounded-lg font-semibold bg-primary text-white hover:bg-indigo-600 transition shadow-lg shadow-indigo-500/30">
+                        Kirim Prompt
+                    </button>
+                </div>
+            </div>
+            <div id="nanoResultsContainer" class="w-full max-w-md mt-6"></div>
+        </div>
+
+    </main>
+
+    <div id="toastNotice" class="hidden fixed bottom-10 left-4 right-4 bg-red-600 text-white p-4 rounded-lg shadow-xl z-50 flex items-center justify-between fade-in max-w-md mx-auto">
+        <div class="flex items-center gap-3">
+            <div id="toastIcon" class="bg-white/20 p-1 rounded-full">!</div>
+            <div>
+                <h4 id="toastTitle" class="font-bold text-sm">Error</h4>
+                <p class="text-xs opacity-90" id="toastMessage">Terjadi kesalahan.</p>
+            </div>
+        </div>
+        <button onclick="document.getElementById('toastNotice').classList.add('hidden')" class="text-white/70 hover:text-white">✕</button>
+    </div>
+
+    <div class="watermark">Website bot by kuna</div>
+
+
+    <script>
+        // --- GANTI TEMA ---
+        function toggleTheme() { 
+            document.documentElement.classList.toggle('dark'); 
+        }
+
+        // --- NAVIGASI MENU ---
+        function toggleMenu() {
+            document.getElementById('dropdown-menu').classList.toggle('hidden');
+        }
+
+        function switchView(viewName) {
+            document.getElementById('view-downloader').classList.add('hidden');
+            document.getElementById('view-flux').classList.add('hidden');
+            document.getElementById('view-nano').classList.add('hidden'); 
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+
+            const titleEl = document.getElementById('viewTitle');
+            if (viewName === 'downloader') { titleEl.innerText = 'KUNA AIO Downloader'; }
+            else if (viewName === 'flux') { titleEl.innerText = 'KUNA Flux AI'; }
+            else if (viewName === 'nano') { titleEl.innerText = 'KUNA Nano AI'; }
+            toggleMenu();
+        }
+
+        // --- NOTIFIKASI ---
+        function showNotice(title, message, isError = false) {
+            const toast = document.getElementById('toastNotice');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastTitle = document.getElementById('toastTitle');
+            toastTitle.innerText = title;
+            document.getElementById('toastMessage').innerText = message;
+            if (isError) {
+                toast.classList.remove('bg-blue-500'); toast.classList.add('bg-red-600');
+                toastIcon.innerText = "!";
+            } else {
+                toast.classList.remove('bg-red-600'); toast.classList.add('bg-blue-500');
+                toastIcon.innerText = "i";
+            }
+            toast.classList.remove('hidden');
+        }
+        function hideNotice() { document.getElementById('toastNotice').classList.add('hidden'); }
+
+        // --- FUNGSI 1: AIO DOWNLOADER ---
+        async function startAioDownload() {
+            const url = document.getElementById('urlInput').value;
+            const container = document.getElementById('aioResultsContainer');
+            if (!url) { showNotice("Error", "Link tidak boleh kosong!", true); return; }
+            showNotice("Processing", "Sedang mengambil data, mohon tunggu...", false);
+            container.innerHTML = ""; 
+            const apiUrl = `https://api.nekolabs.web.id/downloader/aio/v2?url=${encodeURIComponent(url)}`;
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                hideNotice();
+                if (data.success) { displayAioResults(data.result); }
+                else { showNotice("Gagal", data.message || "API tidak merespon / link salah.", true); }
+            } catch (error) { showNotice("Error", "Gagal terhubung ke API. Coba lagi nanti.", true); }
+        }
+
+        function displayAioResults(result) {
+            const container = document.getElementById('aioResultsContainer');
+            const proxiedThumbnail = `https.api.allorigins.win/raw?url=${encodeURIComponent(result.thumbnail)}`;
+            let html = `<div class="bg-white dark:bg-carddark w-full rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-800 fade-in">
+                    <img src="${proxiedThumbnail}" class="rounded-lg w-full mb-4 aspect-video object-cover bg-gray-200 dark:bg-gray-700">
+                    <h3 class="text-lg font-bold mb-4">${result.title}</h3>
+                    <div class="space-y-2"><label class="text-xs text-gray-500 ml-1 mb-1 block">Pilih Kualitas:</label>`;
+            if (result.medias && Array.isArray(result.medias)) {
+                result.medias.forEach(media => {
+                    let quality = media.label || media.quality;
+                    let type = media.is_audio ? 'Audio' : 'Video';
+                    html += `<a href="${media.url}" target="_blank" download class="flex justify-between items-center w-full p-3 rounded-lg bg-gray-100 dark:bg-inputdark hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <span><span class="font-semibold">${quality}</span><span class="text-xs text-gray-500"> (${type} / ${media.ext})</span></span>
+                            <span class="text-xs bg-primary text-white font-medium px-2 py-1 rounded">DOWNLOAD</span></a>`;
+                });
+            } else { html += `<p class="text-gray-500 text-sm">Tidak ada media yang ditemukan.</p>`; }
+            html += `</div></div>`;
+            container.innerHTML = html;
+        }
+
+        // --- FUNGSI 2: FLUX AI GENERATOR ---
+        async function startFluxGeneration() {
+            const text = document.getElementById('fluxInput').value;
+            const container = document.getElementById('fluxResultsContainer');
+            if (!text) { showNotice("Error", "Prompt tidak boleh kosong!", true); return; }
+            showNotice("Generating...", "AI sedang menggambar, mohon tunggu...", false);
+            container.innerHTML = `<div class="bg-white dark:bg-carddark w-full rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-800 fade-in"><div class="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg w-full aspect-square"></div><div class="animate-pulse bg-gray-200 dark:bg-gray-700 h-8 rounded-lg w-full mt-4"></div></div>`;
+            const apiUrl = `https://fast-flux-demo.replicate.workers.dev/api/generate-image?text=${encodeURIComponent(text)}`;
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+            try {
+                const response = await fetch(proxyUrl);
+                if (!response.ok) { throw new Error(`API returned status: ${response.status}`); }
+                const imageBlob = await response.blob();
+                if (!imageBlob.type.startsWith('image/')) { throw new Error("Respon API bukan gambar."); }
+                const imageUrl = URL.createObjectURL(imageBlob);
+                displayFluxResult(imageUrl);
+                hideNotice();
+            } catch (error) {
+                console.error(error); container.innerHTML = ""; 
+                showNotice("Error", "Gagal generate gambar. Coba prompt lain.", true);
+            }
+        }
+
+        function displayFluxResult(imageUrl) {
+            const container = document.getElementById('fluxResultsContainer');
+            container.innerHTML = `<div class="bg-white dark:bg-carddark w-full rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-800 fade-in">
+                    <img src="${imageUrl}" class="rounded-lg w-full mb-4 aspect-square object-cover bg-gray-200 dark:bg-gray-700">
+                    <a href="${imageUrl}" download="kuna-flux-image.png" class="flex justify-center items-center w-full p-3 rounded-lg bg-primary text-white font-semibold hover:bg-indigo-600 transition">Download Image</a></div>`;
+        }
+
+        // --- FUNGSI 3: NANO BANANA AI (PERUBAHAN DI SINI) ---
+        async function startNanoBanana() {
+            const text = document.getElementById('nanoInput').value;
+            const imageUrl = document.getElementById('nanoImageUrlInput').value; // Ambil URL gambar
+            const container = document.getElementById('nanoResultsContainer');
+            if (!text || !imageUrl) { showNotice("Error", "Prompt dan URL Gambar tidak boleh kosong!", true); return; }
+            showNotice("Generating...", "AI sedang berpikir, mohon tunggu...", false);
+            container.innerHTML = `<div class="bg-white dark:bg-carddark w-full rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-800 fade-in"><div class="animate-pulse space-y-2"><div class="bg-gray-200 dark:bg-gray-700 h-4 rounded-lg w-1/4"></div><div class="bg-gray-200 dark:bg-gray-700 h-4 rounded-lg w-full"></div><div class="bg-gray-200 dark:bg-gray-700 h-4 rounded-lg w-full"></div><div class="bg-gray-200 dark:bg-gray-700 h-4 rounded-lg w-3/4"></div></div></div>`;
+            
+            // API URL baru dengan 2 parameter
+            const apiUrl = `https://api.nekolabs.web.id/ai/gemini/nano-banana?prompt=${encodeURIComponent(text)}&imageUrl=${encodeURIComponent(imageUrl)}`;
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                hideNotice();
+                if (data.success && data.result) { displayNanoBananaResult(data.result); }
+                else { container.innerHTML = ""; showNotice("Gagal", data.message || "API tidak merespon / data salah.", true); }
+            } catch (error) { container.innerHTML = ""; showNotice("Error", "Gagal terhubung ke API. Coba lagi nanti.", true); }
+        }
+
+        function displayNanoBananaResult(resultText) {
+            const container = document.getElementById('nanoResultsContainer');
+            container.innerHTML = `<div class="bg-white dark:bg-carddark w-full rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-800 fade-in">
+                    <label class="text-xs text-gray-500 ml-1 mb-2 block">Jawaban AI:</label>
+                    <div class="bg-gray-100 dark:bg-inputdark rounded-lg p-4 text-sm ai-response">${resultText}</div></div>`;
+        }
+    </script>
+</body>
+</html>
